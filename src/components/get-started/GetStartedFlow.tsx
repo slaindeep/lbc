@@ -1,12 +1,12 @@
+// src/components/GetStartedFlow.tsx
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
-import CompanySizeStep from "./CompanySizeStep";
-
 import StepIndicator from "./common/StepIndicator";
+import CompanySizeStep from "./CompanySizeStep";
 import SchedulingStep from "./SchedulingStep";
-import ServicesStep from "./steps/ServiceStep";
+import ServicesStep from "./ServicesStep";
 
-export type FormData = {
+export type CustomFormData = {
   companySize?: string;
   services?: string[];
   contactInfo?: {
@@ -21,9 +21,9 @@ export type FormData = {
 
 const GetStartedFlow = () => {
   const [currentStep, setCurrentStep] = useState(1);
-  const [formData, setFormData] = useState<FormData>({});
+  const [formData, setFormData] = useState<CustomFormData>({});
 
-  const updateFormData = (data: Partial<FormData>) => {
+  const updateFormData = (data: Partial<CustomFormData>) => {
     setFormData((prev) => ({ ...prev, ...data }));
   };
 
@@ -39,45 +39,33 @@ const GetStartedFlow = () => {
     }
   };
 
+  const handleFinalSubmit = (
+    contactInfo: CustomFormData["contactInfo"],
+    appointmentTime: Date
+  ) => {
+    updateFormData({ contactInfo, appointmentTime });
+    // Additional submission logic can go here
+  };
+
   const renderStep = () => {
     switch (currentStep) {
       case 1:
         return (
           <CompanySizeStep
-            onNext={handleNext}
             selectedSize={formData.companySize}
             onSelect={(size) => updateFormData({ companySize: size })}
+            onNext={handleNext}
           />
         );
 
       case 2:
         return (
           <ServicesStep
-            onNext={handleNext}
             onBack={handleBack}
             selectedServices={formData.services || []}
             onSelect={(services) => updateFormData({ services })}
+            onNext={handleNext}
           />
-        );
-        return (
-          <div className="text-center p-8">
-            <h2 className="text-2xl text-[#5D4A82]">Services Selection</h2>
-            <p className="text-gray-600">Coming soon...</p>
-            <div className="mt-4 space-x-4">
-              <button
-                onClick={handleBack}
-                className="px-6 py-2 rounded-lg border border-[#5D4A82] text-[#5D4A82]"
-              >
-                Back
-              </button>
-              <button
-                onClick={handleNext}
-                className="px-6 py-2 rounded-lg bg-[#5D4A82] text-white"
-              >
-                Next
-              </button>
-            </div>
-          </div>
         );
 
       case 3:
@@ -85,23 +73,11 @@ const GetStartedFlow = () => {
           <SchedulingStep
             onBack={handleBack}
             formData={formData}
-            onSubmit={(contactInfo, appointmentTime) =>
-              updateFormData({ contactInfo, appointmentTime })
-            }
+            updateFormData={updateFormData}
+            onSubmit={handleFinalSubmit}
           />
         );
-        return (
-          <div className="text-center p-8">
-            <h2 className="text-2xl text-[#5D4A82]">Schedule Meeting</h2>
-            <p className="text-gray-600">Coming soon...</p>
-            <button
-              onClick={handleBack}
-              className="mt-4 px-6 py-2 rounded-lg border border-[#5D4A82] text-[#5D4A82]"
-            >
-              Back
-            </button>
-          </div>
-        );
+
       default:
         return null;
     }

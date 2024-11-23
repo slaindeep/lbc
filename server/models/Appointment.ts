@@ -13,7 +13,7 @@ export interface IAppointment extends mongoose.Document {
   notes?: string;
 }
 
-const appointmentSchema = new mongoose.Schema(
+export const appointmentSchema = new mongoose.Schema(
   {
     clientName: {
       type: String,

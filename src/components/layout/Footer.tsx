@@ -66,7 +66,7 @@ function Footer() {
           <div className="col-span-1">
             <h3 className="font-bold mb-4">Contact Us</h3>
             <ul className="space-y-2 text-white/80">
-              <li>Email: contact@lbg.com</li>
+              <li>Email: info@lumi-blue.com</li>
               <li>Phone: (123) 456-7890</li>
             </ul>
           </div>

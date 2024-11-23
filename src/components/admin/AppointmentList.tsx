@@ -1,3 +1,4 @@
+import React from "react";
 import { motion } from "framer-motion";
 import {
   Building2,
@@ -8,36 +9,18 @@ import {
   Phone,
   XCircle,
 } from "lucide-react";
+import { useAppointments } from "../../contexts/AppointmentContext";
+import { Appointment } from "../../types";
 
-const appointments = [
-  {
-    id: 1,
-    name: "John Smith",
-    companyName: "Tech Solutions Inc.",
-    companySize: "11-50 employees",
-    email: "john@techsolutions.com",
-    phone: "+971 55 123 4567",
-    date: "2024-11-12",
-    time: "10:00",
-    services: ["Human Resources", "Data Analytics"],
-    status: "confirmed",
-  },
-  {
-    id: 2,
-    name: "Sarah Johnson",
-    companyName: "Global Ventures LLC",
-    companySize: "51-200 employees",
-    email: "sarah@globalventures.com",
-    phone: "+971 55 987 6543",
-    date: "2024-11-12",
-    time: "14:00",
-    services: ["Audit Services", "Legal Consulting"],
-    status: "pending",
-  },
-  // Add more sample appointments as needed
-];
+type AppointmentListProps = {
+  onConfirm: (appointmentId: string) => void;
+};
 
-const AppointmentList = () => {
+const AppointmentList = ({ onConfirm }: AppointmentListProps) => {
+  const { appointments, deleteAppointment } = useAppointments();
+
+  console.log("Fetched Appointments:", appointments); // Debugging line
+
   return (
     <div className="p-6">
       {/* Filters and Search - To be implemented */}
@@ -53,7 +36,7 @@ const AppointmentList = () => {
 
       {/* Appointments List */}
       <div className="space-y-4">
-        {appointments.map((appointment, index) => (
+        {appointments.map((appointment: Appointment, index: number) => (
           <motion.div
             key={appointment.id}
             initial={{ opacity: 0, y: 20 }}
@@ -71,88 +54,50 @@ const AppointmentList = () => {
                       {appointment.name}
                     </h3>
                     <div className="flex items-center space-x-4 text-gray-600">
-                      <div className="flex items-center space-x-1">
-                        <Building2 className="w-4 h-4" />
-                        <span>{appointment.companyName}</span>
-                      </div>
-                      <span className="text-sm bg-gray-100 px-2 py-1 rounded-full">
-                        {appointment.companySize}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Contact Info */}
-                  <div className="flex space-x-4 text-gray-600 text-sm">
-                    <div className="flex items-center space-x-1">
-                      <Mail className="w-4 h-4" />
+                      <Mail className="w-5 h-5" />
                       <span>{appointment.email}</span>
                     </div>
-                    <div className="flex items-center space-x-1">
-                      <Phone className="w-4 h-4" />
+                    <div className="flex items-center space-x-4 text-gray-600">
+                      <Phone className="w-5 h-5" />
                       <span>{appointment.phone}</span>
                     </div>
+                    <div className="flex items-center space-x-4 text-gray-600">
+                      <Building2 className="w-5 h-5" />
+                      <span>{appointment.companyName}</span>
+                    </div>
                   </div>
 
-                  {/* Appointment Details */}
-                  <div className="flex items-center space-x-4">
-                    <div className="flex items-center space-x-1 text-[#5D4A82]">
-                      <Calendar className="w-4 h-4" />
+                  {/* Appointment Info */}
+                  <div className="space-y-2">
+                    <div className="flex items-center space-x-4 text-gray-600">
+                      <Calendar className="w-5 h-5" />
                       <span>{appointment.date}</span>
                     </div>
-                    <div className="flex items-center space-x-1 text-[#5D4A82]">
-                      <Clock className="w-4 h-4" />
+                    <div className="flex items-center space-x-4 text-gray-600">
+                      <Clock className="w-5 h-5" />
                       <span>{appointment.time}</span>
                     </div>
-                  </div>
-
-                  {/* Services */}
-                  <div className="flex flex-wrap gap-2">
-                    {appointment.services.map((service) => (
-                      <span
-                        key={service}
-                        className="bg-[#5D4A82]/10 text-[#5D4A82] px-3 py-1 
-                          rounded-full text-sm font-medium"
-                      >
-                        {service}
-                      </span>
-                    ))}
+                    <div className="flex items-center space-x-4 text-gray-600">
+                      <CheckCircle2 className="w-5 h-5" />
+                      <span>{appointment.status}</span>
+                    </div>
                   </div>
                 </div>
 
-                {/* Status and Actions */}
-                <div className="flex flex-col items-end space-y-4">
-                  <span
-                    className={`flex items-center space-x-1 px-3 py-1 rounded-full text-sm
-                      ${
-                        appointment.status === "confirmed"
-                          ? "bg-green-100 text-green-600"
-                          : "bg-yellow-100 text-yellow-600"
-                      }`}
+                {/* Actions */}
+                <div className="flex space-x-4">
+                  <button
+                    className="text-green-500 hover:text-green-700"
+                    onClick={() => onConfirm(appointment.id.toString())}
                   >
-                    {appointment.status === "confirmed" ? (
-                      <CheckCircle2 className="w-4 h-4" />
-                    ) : (
-                      <XCircle className="w-4 h-4" />
-                    )}
-                    <span className="capitalize">{appointment.status}</span>
-                  </span>
-
-                  <div className="space-x-2">
-                    <button
-                      className="px-3 py-1 text-sm rounded-lg border-2 border-[#5D4A82] 
-                        text-[#5D4A82] hover:bg-[#5D4A82] hover:text-white
-                        transition-all duration-300"
-                    >
-                      Edit
-                    </button>
-                    <button
-                      className="px-3 py-1 text-sm rounded-lg border-2 border-red-500 
-                        text-red-500 hover:bg-red-500 hover:text-white
-                        transition-all duration-300"
-                    >
-                      Cancel
-                    </button>
-                  </div>
+                    <CheckCircle2 className="w-6 h-6" />
+                  </button>
+                  <button
+                    className="text-red-500 hover:text-red-700"
+                    onClick={() => deleteAppointment(appointment.id)}
+                  >
+                    <XCircle className="w-6 h-6" />
+                  </button>
                 </div>
               </div>
             </div>

@@ -1,14 +1,10 @@
-// src/components/admin/AdminDashboard.tsx
 import { AnimatePresence, motion } from "framer-motion";
 import {
   BarChart3,
-  Building,
   CalendarDays,
-  Clock,
   ListTodo,
   LogOut,
   Settings,
-  Users,
 } from "lucide-react";
 import { useState } from "react";
 import { useAppointments } from "../../contexts/AppointmentContext";
@@ -17,62 +13,33 @@ import LoadingSpinner from "../Common/LoadingSpinner";
 import AppointmentCalendar from "./AppointmentCalendar";
 import AppointmentList from "./AppointmentList";
 import StatsOverview from "./StatsOverview";
+import axios from "axios";
 
 type ViewType = "list" | "calendar" | "stats" | "settings";
 
 const AdminDashboard = () => {
   const [currentView, setCurrentView] = useState<ViewType>("list");
   const { logout, user } = useAuth();
-  const { appointments, isLoading, error } = useAppointments();
+  const { isLoading, error } = useAppointments();
+
+  const sendEmail = async (appointmentId: string) => {
+    try {
+      await axios.post("/api/send-email", { appointmentId });
+      console.log("Email sent successfully");
+    } catch (error) {
+      console.error("Error sending email:", error);
+    }
+  };
+
+  const handleAppointmentConfirm = (appointmentId: string) => {
+    sendEmail(appointmentId);
+  };
 
   const navigationItems = [
     { id: "list", label: "Appointments", icon: ListTodo },
     { id: "calendar", label: "Calendar", icon: CalendarDays },
     { id: "stats", label: "Overview", icon: BarChart3 },
     { id: "settings", label: "Settings", icon: Settings },
-  ];
-
-  // Calculate quick stats
-  const quickStats = [
-    {
-      label: "Total Appointments",
-      value: appointments.length.toString(),
-      icon: Users,
-      color: "from-purple-500 to-indigo-500",
-    },
-    {
-      label: "Upcoming Today",
-      value: appointments
-        .filter((apt) => {
-          const today = new Date().toISOString().split("T")[0];
-          return apt.date === today;
-        })
-        .length.toString(),
-      icon: Clock,
-      color: "from-blue-500 to-cyan-500",
-    },
-    {
-      label: "This Week",
-      value: appointments
-        .filter((apt) => {
-          const today = new Date();
-          const appointmentDate = new Date(apt.date);
-          const diffTime = appointmentDate.getTime() - today.getTime();
-          const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-          return diffDays >= 0 && diffDays <= 7;
-        })
-        .length.toString(),
-      icon: CalendarDays,
-      color: "from-emerald-500 to-teal-500",
-    },
-    {
-      label: "Companies",
-      value: new Set(
-        appointments.map((apt) => apt.companyName)
-      ).size.toString(),
-      icon: Building,
-      color: "from-orange-500 to-red-500",
-    },
   ];
 
   const renderView = () => {
@@ -103,22 +70,25 @@ const AdminDashboard = () => {
         return (
           <div className="p-6">
             <h2 className="text-2xl font-bold text-[#5D4A82] mb-4">Settings</h2>
-            {/* Add settings content here */}
           </div>
         );
       default:
-        return <AppointmentList />;
+        return <AppointmentList onConfirm={handleAppointmentConfirm} />;
     }
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 pt-20">
+      {" "}
+      {/* Added pt-20 for top spacing */}
       <div className="container mx-auto px-4 py-8">
+        {" "}
+        {/* Adjusted padding */}
         {/* Dashboard Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-white rounded-xl shadow-lg p-6 mb-8"
+          className="bg-white rounded-xl shadow-lg p-6 mb-6"
         >
           <div className="flex justify-between items-center">
             <div>
@@ -138,35 +108,8 @@ const AdminDashboard = () => {
             </button>
           </div>
         </motion.div>
-
-        {/* Quick Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          {quickStats.map((stat) => (
-            <motion.div
-              key={stat.label}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="bg-white rounded-xl shadow-lg p-6"
-            >
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-gray-600 text-sm">{stat.label}</p>
-                  <h3 className="text-2xl font-bold text-[#5D4A82] mt-1">
-                    {stat.value}
-                  </h3>
-                </div>
-                <div
-                  className={`p-3 rounded-lg bg-gradient-to-r ${stat.color} text-white`}
-                >
-                  <stat.icon className="w-6 h-6" />
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-
         {/* Navigation */}
-        <div className="bg-white rounded-xl shadow-lg p-4 mb-8">
+        <div className="bg-white rounded-xl shadow-lg p-4 mb-6">
           <div className="flex flex-wrap gap-4">
             {navigationItems.map((item) => (
               <button
@@ -186,7 +129,6 @@ const AdminDashboard = () => {
             ))}
           </div>
         </div>
-
         {/* Main Content */}
         <AnimatePresence mode="wait">
           <motion.div

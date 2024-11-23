@@ -7,26 +7,39 @@ import "react-calendar/dist/Calendar.css";
 type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
 
-// Sample appointments data
-const appointments = [
-  {
-    id: 1,
-    date: "2024-11-12",
-    time: "10:00",
-    name: "John Smith",
-    companyName: "Tech Solutions Inc.",
-    services: ["Human Resources", "Data Analytics"],
-  },
-  {
-    id: 2,
-    date: "2024-11-12",
-    time: "14:00",
-    name: "Sarah Johnson",
-    companyName: "Global Ventures LLC",
-    services: ["Audit Services", "Legal Consulting"],
-  },
-  // Add more appointments as needed
-];
+type Appointment = {
+  id: number;
+  date: string;
+  time: string;
+  name: string;
+  companyName: string;
+  services: string[];
+};
+
+// ...existing code...
+
+// Remove sample appointments data
+// const appointments = [
+//   {
+//     id: 1,
+//     date: "2024-11-12",
+//     time: "10:00",
+//     name: "John Smith",
+//     companyName: "Tech Solutions Inc.",
+//     services: ["Human Resources", "Data Analytics"],
+//   },
+//   {
+//     id: 2,
+//     date: "2024-11-12",
+//     time: "14:00",
+//     name: "Sarah Johnson",
+//     companyName: "Global Ventures LLC",
+//     services: ["Audit Services", "Legal Consulting"],
+//   },
+//   // Add more appointments as needed
+// ];
+
+// ...existing code...
 
 const AppointmentCalendar = () => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
@@ -38,9 +51,10 @@ const AppointmentCalendar = () => {
   };
 
   // Filter appointments for selected date
-  const getAppointmentsForDate = (date: Date) => {
+  const getAppointmentsForDate = (date: Date): Appointment[] => {
     const dateString = date.toISOString().split("T")[0];
-    return appointments.filter((apt) => apt.date === dateString);
+    // Return an empty array as there are no appointments initially
+    return [];
   };
 
   // Custom styles for react-calendar to match your theme

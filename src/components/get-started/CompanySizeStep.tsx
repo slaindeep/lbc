@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
-import { Building, Building2, Factory, Users } from "lucide-react";
-import React from "react";
+import { Building, Building2 } from "lucide-react";
 
 interface CompanySizeStepProps {
   onNext: () => void;
@@ -11,155 +10,129 @@ interface CompanySizeStepProps {
 const companySizes = [
   {
     id: "small",
-    label: "1-10 employees",
-    description: "Small Business",
-    icon: Users,
-  },
-  {
-    id: "growing",
-    label: "11-50 employees",
-    description: "Growing Business",
+    label: "Small Business",
+    description: "1-50 employees",
     icon: Building,
   },
   {
-    id: "midsize",
-    label: "51-200 employees",
-    description: "Mid-size Business",
+    id: "medium",
+    label: "Medium Enterprise",
+    description: "51-250 employees",
     icon: Building2,
   },
   {
     id: "large",
-    label: "201-500 employees",
-    description: "Large Business",
+    label: "Large Corporation",
+    description: "250+ employees",
     icon: Building,
-  },
-  {
-    id: "enterprise",
-    label: "500+ employees",
-    description: "Enterprise",
-    icon: Factory,
   },
 ];
 
-const CompanySizeStep: React.FC<CompanySizeStepProps> = ({
+const CompanySizeStep = ({
   onNext,
   selectedSize,
   onSelect,
-}) => {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    show: { opacity: 1, y: 0 },
-  };
-
+}: CompanySizeStepProps) => {
   return (
-    <div className="py-8">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="text-center mb-12"
-      >
-        <h2 className="text-3xl md:text-4xl font-bold text-[#5D4A82] mb-4">
-          How large is your company?
+    <div className="space-y-6">
+      <div className="text-center space-y-2">
+        <h2 className="text-2xl font-semibold text-gray-900">
+          Select Your Company Size
         </h2>
-        <p className="text-gray-600 max-w-2xl mx-auto">
-          Help us understand your business scale so we can better serve your
-          needs
-        </p>
-      </motion.div>
+        <p className="text-gray-500">Help us understand your business better</p>
+      </div>
 
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        animate="show"
-        className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8"
-      >
-        {companySizes.map(({ id, label, description, icon: Icon }) => (
-          <motion.div key={id} variants={itemVariants} className="relative">
-            <button
-              onClick={() => onSelect(id)}
-              className={`w-full h-full p-6 rounded-xl transition-all duration-300 
-                group hover:shadow-xl text-left
+      <div className="grid gap-4">
+        {companySizes.map((size) => {
+          const Icon = size.icon;
+          const isSelected = selectedSize === size.id;
+
+          return (
+            <motion.button
+              key={size.id}
+              onClick={() => onSelect(size.id)}
+              className={`relative w-full p-4 rounded-xl border-2 transition-colors
                 ${
-                  selectedSize === id
-                    ? "bg-gradient-to-r from-[#5D4A82] to-[#856BAE] text-white shadow-lg"
-                    : "bg-white hover:bg-gray-50 border border-gray-100"
-                }`}
+                  isSelected
+                    ? "border-blue-500 bg-blue-50"
+                    : "border-gray-200 hover:border-gray-300"
+                }
+                focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2`}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
             >
-              <div className="flex items-start space-x-4">
+              <div className="flex items-center space-x-4">
                 <div
-                  className={`p-3 rounded-lg transition-colors duration-300
-                    ${
-                      selectedSize === id
-                        ? "bg-white/10"
-                        : "bg-[#5D4A82]/5 group-hover:bg-[#5D4A82]/10"
-                    }`}
+                  className={`p-2 rounded-lg ${
+                    isSelected
+                      ? "bg-blue-500 text-white"
+                      : "bg-gray-100 text-gray-600"
+                  }`}
                 >
-                  <Icon
-                    className={`w-8 h-8 ${
-                      selectedSize === id
-                        ? "text-white"
-                        : "text-[#5D4A82] group-hover:text-[#856BAE]"
-                    }`}
-                  />
+                  <Icon className="w-6 h-6" />
                 </div>
-                <div>
-                  <h3
-                    className={`font-semibold text-lg mb-1 transition-colors
-                      ${
-                        selectedSize === id
-                          ? "text-white"
-                          : "text-[#5D4A82] group-hover:text-[#856BAE]"
-                      }`}
-                  >
-                    {label}
-                  </h3>
+                <div className="flex-1 text-left">
                   <p
-                    className={`transition-colors
-                      ${
-                        selectedSize === id
-                          ? "text-white/90"
-                          : "text-gray-500 group-hover:text-gray-600"
-                      }`}
+                    className={`font-medium ${
+                      isSelected ? "text-blue-700" : "text-gray-900"
+                    }`}
                   >
-                    {description}
+                    {size.label}
+                  </p>
+                  <p
+                    className={`text-sm ${
+                      isSelected ? "text-blue-600" : "text-gray-500"
+                    }`}
+                  >
+                    {size.description}
                   </p>
                 </div>
+                <div
+                  className={`w-5 h-5 rounded-full border-2 
+                  ${
+                    isSelected
+                      ? "border-blue-500 bg-blue-500"
+                      : "border-gray-300 bg-white"
+                  }`}
+                >
+                  {isSelected && (
+                    <motion.svg
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      className="w-full h-full text-white"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="3"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <polyline points="20 6 9 17 4 12" />
+                    </motion.svg>
+                  )}
+                </div>
               </div>
-            </button>
-          </motion.div>
-        ))}
-      </motion.div>
+            </motion.button>
+          );
+        })}
+      </div>
 
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.5 }}
-        className="flex justify-center"
-      >
-        <button
+      <div className="flex justify-end pt-4">
+        <motion.button
           onClick={onNext}
           disabled={!selectedSize}
-          className={`px-8 py-3 rounded-lg font-semibold text-lg
-            transition-all duration-300 transform hover:scale-105
+          className={`px-6 py-2 rounded-lg font-medium transition-colors
             ${
               selectedSize
-                ? "bg-gradient-to-r from-[#5D4A82] to-[#856BAE] text-white shadow-lg hover:shadow-xl"
+                ? "bg-blue-500 text-white hover:bg-blue-600"
                 : "bg-gray-100 text-gray-400 cursor-not-allowed"
             }`}
+          whileHover={selectedSize ? { scale: 1.02 } : {}}
+          whileTap={selectedSize ? { scale: 0.98 } : {}}
         >
-          Continue
-        </button>
-      </motion.div>
+          Next Step
+        </motion.button>
+      </div>
     </div>
   );
 };

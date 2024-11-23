@@ -1,79 +1,26 @@
 // src/contexts/AppointmentContext.tsx
+
 import React, {
   createContext,
   useCallback,
   useContext,
   useEffect,
-  useReducer,
+  useState,
 } from "react";
-import { useAuth } from "./AuthContext";
+import { Appointment } from "../types/email";
 
-interface Appointment {
-  id: number;
-  name: string;
-  companyName: string;
-  companySize: string;
-  email: string;
-  phone: string;
-  date: string;
-  time: string;
-  services: string[];
-  status: "confirmed" | "pending" | "cancelled";
-}
-
-interface AppointmentState {
+interface AppointmentContextType {
   appointments: Appointment[];
   isLoading: boolean;
   error: string | null;
-}
-
-type AppointmentAction =
-  | { type: "FETCH_APPOINTMENTS_START" }
-  | { type: "FETCH_APPOINTMENTS_SUCCESS"; payload: Appointment[] }
-  | { type: "FETCH_APPOINTMENTS_ERROR"; payload: string }
-  | { type: "UPDATE_APPOINTMENT"; payload: Appointment }
-  | { type: "DELETE_APPOINTMENT"; payload: number };
-
-const initialState: AppointmentState = {
-  appointments: [],
-  isLoading: false,
-  error: null,
-};
-
-const appointmentReducer = (
-  state: AppointmentState,
-  action: AppointmentAction
-): AppointmentState => {
-  switch (action.type) {
-    case "FETCH_APPOINTMENTS_START":
-      return { ...state, isLoading: true, error: null };
-    case "FETCH_APPOINTMENTS_SUCCESS":
-      return { ...state, appointments: action.payload, isLoading: false };
-    case "FETCH_APPOINTMENTS_ERROR":
-      return { ...state, error: action.payload, isLoading: false };
-    case "UPDATE_APPOINTMENT":
-      return {
-        ...state,
-        appointments: state.appointments.map((apt) =>
-          apt.id === action.payload.id ? action.payload : apt
-        ),
-      };
-    case "DELETE_APPOINTMENT":
-      return {
-        ...state,
-        appointments: state.appointments.filter(
-          (apt) => apt.id !== action.payload
-        ),
-      };
-    default:
-      return state;
-  }
-};
-
-interface AppointmentContextType extends AppointmentState {
-  fetchAppointments: () => Promise<void>;
-  updateAppointment: (appointment: Appointment) => Promise<void>;
-  deleteAppointment: (id: number) => Promise<void>;
+  addAppointment: (
+    appointment: Omit<Appointment, "id" | "status">
+  ) => Promise<void>;
+  updateAppointmentStatus: (
+    id: number,
+    status: "pending" | "confirmed" | "cancelled"
+  ) => void;
+  deleteAppointment: (id: number) => void;
 }
 
 const AppointmentContext = createContext<AppointmentContextType | undefined>(
@@ -83,82 +30,157 @@ const AppointmentContext = createContext<AppointmentContextType | undefined>(
 export const AppointmentProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [state, dispatch] = useReducer(appointmentReducer, initialState);
-  const { token } = useAuth();
+  const [appointments, setAppointments] = useState<Appointment[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const fetchAppointments = useCallback(async () => {
-    if (!token) return;
+    setIsLoading(true);
+    setError(null);
 
-    dispatch({ type: "FETCH_APPOINTMENTS_START" });
     try {
-      const response = await fetch("/api/appointments", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      if (!response.ok) throw new Error("Failed to fetch appointments");
+      const response = await fetch("http://localhost:3001/api/appointments");
+      if (!response.ok) {
+        throw new Error("Failed to fetch appointments");
+      }
       const data = await response.json();
-      dispatch({ type: "FETCH_APPOINTMENTS_SUCCESS", payload: data });
-    } catch (error) {
-      dispatch({
-        type: "FETCH_APPOINTMENTS_ERROR",
-        payload: "Failed to load appointments",
-      });
+      setAppointments(data);
+    } catch (err) {
+      setError("Failed to fetch appointments. Please try again.");
+      console.error("Fetch error:", err);
+    } finally {
+      setIsLoading(false);
     }
-  }, [token]); // token is the only dependency here
-
-  const updateAppointment = useCallback(
-    async (appointment: Appointment) => {
-      if (!token) return;
-
-      try {
-        const response = await fetch(`/api/appointments/${appointment.id}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(appointment),
-        });
-        if (!response.ok) throw new Error("Failed to update appointment");
-        dispatch({ type: "UPDATE_APPOINTMENT", payload: appointment });
-      } catch (error) {
-        console.error("Error updating appointment:", error);
-      }
-    },
-    [token]
-  );
-
-  const deleteAppointment = useCallback(
-    async (id: number) => {
-      if (!token) return;
-
-      try {
-        const response = await fetch(`/api/appointments/${id}`, {
-          method: "DELETE",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        if (!response.ok) throw new Error("Failed to delete appointment");
-        dispatch({ type: "DELETE_APPOINTMENT", payload: id });
-      } catch (error) {
-        console.error("Error deleting appointment:", error);
-      }
-    },
-    [token]
-  );
+  }, []);
 
   useEffect(() => {
-    if (token) {
-      fetchAppointments();
+    fetchAppointments();
+  }, [fetchAppointments]);
+
+  const addAppointment = useCallback(
+    async (appointmentData: Omit<Appointment, "id" | "status">) => {
+      setIsLoading(true);
+      setError(null);
+
+      try {
+        console.log(
+          "Starting appointment creation with data:",
+          appointmentData
+        );
+
+        const response = await fetch("http://localhost:3001/api/appointments", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            "Cache-Control": "no-cache",
+          },
+          body: JSON.stringify({ ...appointmentData, status: "pending" }),
+          credentials: "include",
+        });
+
+        console.log("Received response:", {
+          status: response.status,
+          statusText: response.statusText,
+          headers: Object.fromEntries(response.headers.entries()),
+        });
+
+        if (!response.ok) {
+          let errorDetail = "Unknown error";
+          try {
+            const errorData = await response.json();
+            errorDetail =
+              errorData.message ||
+              errorData.error ||
+              errorData.details ||
+              "Unknown error";
+          } catch (e) {
+            errorDetail = response.statusText;
+          }
+
+          throw new Error(
+            `Failed to add appointment: ${errorDetail} (${response.status})`
+          );
+        }
+
+        const newAppointment = await response.json();
+        console.log("Successfully created appointment:", newAppointment);
+
+        setAppointments((prev) => [...prev, newAppointment]);
+      } catch (err) {
+        console.error("Error in addAppointment:", {
+          error: err,
+          message: err instanceof Error ? err.message : "Unknown error",
+          stack: err instanceof Error ? err.stack : undefined,
+        });
+
+        throw err;
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    []
+  );
+
+  const updateAppointmentStatus = useCallback(
+    async (id: number, status: "pending" | "confirmed" | "cancelled") => {
+      try {
+        const response = await fetch(
+          `http://localhost:3001/api/appointments/${id}`,
+          {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ status }),
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Failed to update appointment status");
+        }
+
+        setAppointments((prev) =>
+          prev.map((appointment) =>
+            appointment.id === id ? { ...appointment, status } : appointment
+          )
+        );
+      } catch (err) {
+        console.error("Error updating appointment status:", err);
+        setError("Failed to update appointment status");
+      }
+    },
+    []
+  );
+
+  const deleteAppointment = useCallback(async (id: number) => {
+    try {
+      const response = await fetch(
+        `http://localhost:3001/api/appointments/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to delete appointment");
+      }
+
+      setAppointments((prev) =>
+        prev.filter((appointment) => appointment.id !== id)
+      );
+    } catch (err) {
+      console.error("Error deleting appointment:", err);
+      setError("Failed to delete appointment");
     }
-  }, [token, fetchAppointments]); // Now fetchAppointments is properly included
+  }, []);
 
   const value = {
-    ...state,
-    fetchAppointments,
-    updateAppointment,
+    appointments,
+    isLoading,
+    error,
+    addAppointment,
+    updateAppointmentStatus,
     deleteAppointment,
   };
 

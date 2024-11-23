@@ -30,7 +30,7 @@ const TeamMembers = () => {
     {
       id: 1,
       name: "Jayalakshmi Anand",
-      role: "Leadership Development Director",
+      role: "Senior Partner - Corporate Affairs and HR",
 
       bio: `An accomplished HR professional with over 20 years of extensive experience across consulting, energy, and fintech industries. As the Leadership Development Director at Luminous Bluewaters Group, she drives organizational excellence through strategic HR initiatives and innovative leadership programs.`,
       responsibilities: [
@@ -56,7 +56,7 @@ const TeamMembers = () => {
     {
       id: 2,
       name: "Jitheesh Thilak",
-      role: "Advisory Services Director",
+      role: "Senior Partner - Legal and  Compliance",
 
       bio: `A pioneering force in investment law and mega contracts negotiation with 23 years of Post-Qualification Experience (PQE). As Advisory Services Director, he leads our strategic consulting initiatives, bringing extensive expertise in international corporate law and investment strategies to our clients.`,
       responsibilities: [
@@ -86,7 +86,7 @@ const TeamMembers = () => {
     {
       id: 3,
       name: "Tony Martin",
-      role: "Enterprise Solutions Director",
+      role: "Senior Partner - Finance and Auditing",
 
       bio: `A distinguished finance professional with 19 years of international experience, serving as Partner at RKA Global Chartered Accountants L.L.C., Dubai. Demonstrates exceptional expertise in financial leadership, strategic decision-making, and enterprise solutions across manufacturing, retail, wholesale, automotive, real estate, and contracting sectors.`,
       responsibilities: [
@@ -115,39 +115,39 @@ const TeamMembers = () => {
       imageSrc: tonyProfile,
     },
 
-    {
-      id: 4,
-      name: "Steven Anzaldua",
-      role: "Information Security Director",
-      bio: `A distinguished cybersecurity expert with over 20 years of experience across major financial institutions. Specializes in information security governance, identity management, and fraud prevention. Known for developing innovative security solutions and leading comprehensive risk management programs.`,
-      responsibilities: [
-        "Leads enterprise-wide information security strategy and governance",
-        "Oversees identity and access management programs",
-        "Directs security risk assessment and compliance initiatives",
-        "Manages fraud prevention and detection systems",
-        "Develops and implements security control frameworks",
-      ],
-      education: [
-        "Bachelor of Applied Science - Amercan Public University",
-        "Multiple Industry Certifications in Information Security",
-      ],
-      certifications: [
-        "Expert in Identity and Access Management (IAM)",
-        "Patent Holder: Mutual Authentication System (ES-1900.00|09142-8253.US00)",
-        "Specialist in Data-Driven Security Operations",
-      ],
-      social: {
-        linkedin: "https://www.linkedin.com/in/steven-a-73080131/",
-        email: "steven@luminousbluewaters.com",
-      },
-      featured: true,
-      imageSrc: stevenProfile,
-    },
+    // {
+    //   id: 4,
+    //   name: "Steven Anzaldua",
+    //   role: "Information Security Director",
+    //   bio: `A distinguished cybersecurity expert with over 20 years of experience across major financial institutions. Specializes in information security governance, identity management, and fraud prevention. Known for developing innovative security solutions and leading comprehensive risk management programs.`,
+    //   responsibilities: [
+    //     "Leads enterprise-wide information security strategy and governance",
+    //     "Oversees identity and access management programs",
+    //     "Directs security risk assessment and compliance initiatives",
+    //     "Manages fraud prevention and detection systems",
+    //     "Develops and implements security control frameworks",
+    //   ],
+    //   education: [
+    //     "Bachelor of Applied Science - Amercan Public University",
+    //     "Multiple Industry Certifications in Information Security",
+    //   ],
+    //   certifications: [
+    //     "Expert in Identity and Access Management (IAM)",
+    //     "Patent Holder: Mutual Authentication System (ES-1900.00|09142-8253.US00)",
+    //     "Specialist in Data-Driven Security Operations",
+    //   ],
+    //   social: {
+    //     linkedin: "https://www.linkedin.com/in/steven-a-73080131/",
+    //     email: "steven@luminousbluewaters.com",
+    //   },
+    //   featured: true,
+    //   imageSrc: stevenProfile,
+    // },
 
     {
       id: 5,
       name: "Ahmed Al Shehhi",
-      role: "Global Director - Business Development & Strategic Partnerships",
+      role: "Partner - Business Development and Strategic Alliance",
       bio: `A seasoned Development Director with over 20 years of high-level experience across local and international markets. With expertise spanning the Middle East, Europe, and Asia, Ahmed has established himself as a transformative leader in business development and strategic partnerships. His entrepreneurial mindset and deep industry knowledge have consistently driven sustainable growth and excellence across diverse sectors.`,
       responsibilities: [
         "Leads global business development initiatives and strategic partnerships",
@@ -173,69 +173,69 @@ const TeamMembers = () => {
       imageSrc: ahmedProfile,
     },
 
-    {
-      id: 6,
-      name: "Balu Gopalakrishnan",
-      role: "Legal Director - Corporate & Construction",
-      bio: `A distinguished legal professional with over 20 years of experience specializing in corporate and construction law across the UAE and India. As Managing Partner at Luminous Legal Partners, Balu brings extensive expertise in dispute resolution, contract negotiation, and corporate governance. His comprehensive understanding of international business law and proven track record in managing complex legal affairs makes him an invaluable asset in navigating the intricate legal landscape of cross-border business operations.`,
-      responsibilities: [
-        "Leads corporate legal strategy and compliance initiatives",
-        "Oversees complex contract negotiations and dispute resolutions",
-        "Manages international legal partnerships and joint ventures",
-        "Directs construction law and property development matters",
-        "Provides strategic legal counsel on corporate governance",
-      ],
-      education: [
-        "LLB, Law - Karnatak University (1997-2004)",
-        "Multiple Specialized Certifications in Corporate and Construction Law",
-      ],
-      certifications: [
-        "Expert in Corporate Law and Governance",
-        "Specialist in Construction Law and Dispute Resolution",
-        "Certified in International Contract Law",
-        "Advanced Certification in Legal Writing and Research",
-      ],
-      social: {
-        linkedin: "https://www.linkedin.com/in/balu-gopalakrishnan-72451814/",
-        email: "balu@luminouslegal.com",
-      },
-      featured: true,
-      imageSrc: baluProfile,
-    },
-    {
-      id: 7,
-      name: "Joshua Seibert",
-      role: "Director of Audit & Analytics",
-      bio: `A distinguished audit and analytics professional with over 15 years of experience in operational and financial auditing. Joshua brings expertise in transforming audit processes through advanced data analytics and visualization. His background spans Big Four consulting at Ernst & Young and corporate leadership at Marathon Petroleum Corporation, where he pioneered data-driven audit methodologies and led cross-functional teams in implementing innovative solutions.`,
-      responsibilities: [
-        "Leads data-driven audit strategies and methodologies",
-        "Oversees operational and financial audit programs",
-        "Directs implementation of analytics solutions",
-        "Manages cross-functional audit teams and projects",
-        "Develops and implements audit efficiency initiatives",
-      ],
-      education: [
-        "Masters of Accountancy - Texas State University (2003-2008)",
-        "Certified Public Accountant (CPA) - Texas State Board of Public Accountancy",
-      ],
-      certifications: [
-        "Certified Public Accountant (CPA)",
-        "Expert in Data Analytics and Visualization",
-        "Specialist in Microsoft Power Platform (Power BI, Power Apps, Power Query)",
-        "Advanced Certification in SAP ERP and ACL Analytics",
-      ],
-      social: {
-        linkedin: "https://www.linkedin.com/in/joshua-seibert-91699546/",
-        email: "joshua@luminousbluewaters.com",
-      },
-      featured: true,
-      imageSrc: joshuaProfile,
-    },
+    // {
+    //   id: 6,
+    //   name: "Balu Gopalakrishnan",
+    //   role: "Legal Director - Corporate & Construction",
+    //   bio: `A distinguished legal professional with over 20 years of experience specializing in corporate and construction law across the UAE and India. As Managing Partner at Luminous Legal Partners, Balu brings extensive expertise in dispute resolution, contract negotiation, and corporate governance. His comprehensive understanding of international business law and proven track record in managing complex legal affairs makes him an invaluable asset in navigating the intricate legal landscape of cross-border business operations.`,
+    //   responsibilities: [
+    //     "Leads corporate legal strategy and compliance initiatives",
+    //     "Oversees complex contract negotiations and dispute resolutions",
+    //     "Manages international legal partnerships and joint ventures",
+    //     "Directs construction law and property development matters",
+    //     "Provides strategic legal counsel on corporate governance",
+    //   ],
+    //   education: [
+    //     "LLB, Law - Karnatak University (1997-2004)",
+    //     "Multiple Specialized Certifications in Corporate and Construction Law",
+    //   ],
+    //   certifications: [
+    //     "Expert in Corporate Law and Governance",
+    //     "Specialist in Construction Law and Dispute Resolution",
+    //     "Certified in International Contract Law",
+    //     "Advanced Certification in Legal Writing and Research",
+    //   ],
+    //   social: {
+    //     linkedin: "https://www.linkedin.com/in/balu-gopalakrishnan-72451814/",
+    //     email: "balu@luminouslegal.com",
+    //   },
+    //   featured: true,
+    //   imageSrc: baluProfile,
+    // },
+    // {
+    //   id: 7,
+    //   name: "Joshua Seibert",
+    //   role: "Director of Audit & Analytics",
+    //   bio: `A distinguished audit and analytics professional with over 15 years of experience in operational and financial auditing. Joshua brings expertise in transforming audit processes through advanced data analytics and visualization. His background spans Big Four consulting at Ernst & Young and corporate leadership at Marathon Petroleum Corporation, where he pioneered data-driven audit methodologies and led cross-functional teams in implementing innovative solutions.`,
+    //   responsibilities: [
+    //     "Leads data-driven audit strategies and methodologies",
+    //     "Oversees operational and financial audit programs",
+    //     "Directs implementation of analytics solutions",
+    //     "Manages cross-functional audit teams and projects",
+    //     "Develops and implements audit efficiency initiatives",
+    //   ],
+    //   education: [
+    //     "Masters of Accountancy - Texas State University (2003-2008)",
+    //     "Certified Public Accountant (CPA) - Texas State Board of Public Accountancy",
+    //   ],
+    //   certifications: [
+    //     "Certified Public Accountant (CPA)",
+    //     "Expert in Data Analytics and Visualization",
+    //     "Specialist in Microsoft Power Platform (Power BI, Power Apps, Power Query)",
+    //     "Advanced Certification in SAP ERP and ACL Analytics",
+    //   ],
+    //   social: {
+    //     linkedin: "https://www.linkedin.com/in/joshua-seibert-91699546/",
+    //     email: "joshua@luminousbluewaters.com",
+    //   },
+    //   featured: true,
+    //   imageSrc: joshuaProfile,
+    // },
 
     {
       id: 8,
       name: "Sandeep Vasudevan",
-      role: "Director of Digital Transformation & Innovation",
+      role: "Partner - Digital Innovation and Analytics",
       bio: `A strategic digital transformation leader with over 20+ years of expertise in driving enterprise-wide innovation across Internal Audit, Banking, and Process Automation. Patent holder and recognized innovator in developing data-driven solutions that revolutionize business processes. At Marathon Petroleum Corporation, Sandeep has demonstrated excellence in architecting solutions that bridge business intelligence with operational excellence, achieving 100% stakeholder satisfaction across 32+ major enterprise projects.`,
       responsibilities: [
         "Plays a key role in executing enterprise-wide digital transformation initiatives",

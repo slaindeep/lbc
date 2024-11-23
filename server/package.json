@@ -4,7 +4,7 @@
   "description": "LBC Corporate Website Backend",
   "main": "server.ts",
   "scripts": {
-    "start": "ts-node server.ts",
+    "start": "ts-node src/server.ts",
     "dev": "nodemon server.ts",
     "seed:admin": "ts-node scripts/seedAdmin.ts",
     "build": "tsc",
