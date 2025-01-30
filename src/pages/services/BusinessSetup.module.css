@@ -1,0 +1,75 @@
+.businessSetupContainer {
+  width: 100%;
+  min-height: 100vh;
+  padding-top: 96px; /* Added to account for fixed header */
+}
+
+.heroSection {
+  position: relative;
+  width: 100%;
+  min-height: 80vh;
+  background: #ffffff;
+  padding: 2rem;
+}
+
+.heroContent {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  min-height: 70vh;
+}
+
+.textContent {
+  flex: 1;
+  padding: 2rem;
+  max-width: 600px;
+}
+
+.videoContainer {
+  flex: 1;
+  height: 600px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.contentSection {
+  padding: 4rem 2rem;
+}
+
+@media (max-width: 1024px) {
+  .businessSetupContainer {
+    padding-top: 96px; /* Maintain header spacing on mobile */
+  }
+
+  .heroSection {
+    padding: 1rem;
+    min-height: auto; /* Better mobile height handling */
+  }
+
+  .heroContent {
+    flex-direction: column;
+    text-align: center;
+    min-height: auto; /* Adjust for mobile */
+    padding-top: 2rem; /* Add some spacing at the top */
+  }
+
+  .textContent {
+    max-width: 100%;
+    padding: 1rem;
+  }
+
+  .videoContainer {
+    width: 100%;
+    height: 400px;
+  }
+}

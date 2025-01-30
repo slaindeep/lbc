@@ -95,6 +95,24 @@ app.post("/api/appointments", async (req, res) => {
       body: req.body,
     });
 
+    // Validate required fields
+    const requiredFields = [
+      "name",
+      "email",
+      "phone",
+      "companyName",
+      "date",
+      "time",
+    ];
+    for (const field of requiredFields) {
+      if (!req.body[field]) {
+        return res.status(400).json({
+          error: `Missing required field: ${field}`,
+          details: `The ${field} field is required for creating an appointment.`,
+        });
+      }
+    }
+
     // Sanitize and normalize the input data
     const appointmentData: AppointmentData = {
       id: Date.now(),
@@ -218,7 +236,7 @@ app.use(
 );
 
 // Start server
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   const networkInterfaces = os.networkInterfaces();
   const localIp = networkInterfaces["Wi-Fi"]?.find(

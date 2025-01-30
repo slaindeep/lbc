@@ -1,5 +1,3 @@
-// src/contexts/AppointmentContext.tsx
-
 import React, {
   createContext,
   useCallback,
@@ -7,7 +5,16 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import { Appointment } from "../types/email";
+import { Appointment } from "../types";
+import { apiEndpoints } from "../config/api";
+
+interface ApiResponse {
+  appointment?: Appointment;
+  appointments?: Appointment[];
+  message?: string;
+  error?: string;
+  emailSent?: boolean;
+}
 
 interface AppointmentContextType {
   appointments: Appointment[];
@@ -21,6 +28,7 @@ interface AppointmentContextType {
     status: "pending" | "confirmed" | "cancelled"
   ) => void;
   deleteAppointment: (id: number) => void;
+  refreshAppointments: () => Promise<void>;
 }
 
 const AppointmentContext = createContext<AppointmentContextType | undefined>(
@@ -39,22 +47,37 @@ export const AppointmentProvider: React.FC<{ children: React.ReactNode }> = ({
     setError(null);
 
     try {
-      const response = await fetch("http://localhost:3001/api/appointments");
+      const response = await fetch(apiEndpoints.appointments);
       if (!response.ok) {
         throw new Error("Failed to fetch appointments");
       }
-      const data = await response.json();
-      setAppointments(data);
+      const data: ApiResponse = await response.json();
+      
+      // Handle both array and object responses from PHP
+      if (Array.isArray(data)) {
+        setAppointments(data);
+      } else if (data.appointments) {
+        setAppointments(data.appointments);
+      } else {
+        setAppointments([]);
+      }
     } catch (err) {
-      setError("Failed to fetch appointments. Please try again.");
       console.error("Fetch error:", err);
+      setError("Failed to fetch appointments. Please try again.");
     } finally {
       setIsLoading(false);
     }
   }, []);
 
+  const refreshAppointments = useCallback(async () => {
+    await fetchAppointments();
+  }, [fetchAppointments]);
+
   useEffect(() => {
     fetchAppointments();
+    // Set up periodic refresh every 30 seconds
+    const interval = setInterval(fetchAppointments, 30000);
+    return () => clearInterval(interval);
   }, [fetchAppointments]);
 
   const addAppointment = useCallback(
@@ -63,78 +86,46 @@ export const AppointmentProvider: React.FC<{ children: React.ReactNode }> = ({
       setError(null);
 
       try {
-        console.log(
-          "Starting appointment creation with data:",
-          appointmentData
-        );
-
-        const response = await fetch("http://localhost:3001/api/appointments", {
+        const response = await fetch(apiEndpoints.appointments, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Accept: "application/json",
-            "Cache-Control": "no-cache",
           },
           body: JSON.stringify({ ...appointmentData, status: "pending" }),
-          credentials: "include",
         });
 
-        console.log("Received response:", {
-          status: response.status,
-          statusText: response.statusText,
-          headers: Object.fromEntries(response.headers.entries()),
-        });
+        const data: ApiResponse = await response.json();
 
         if (!response.ok) {
-          let errorDetail = "Unknown error";
-          try {
-            const errorData = await response.json();
-            errorDetail =
-              errorData.message ||
-              errorData.error ||
-              errorData.details ||
-              "Unknown error";
-          } catch (e) {
-            errorDetail = response.statusText;
-          }
-
-          throw new Error(
-            `Failed to add appointment: ${errorDetail} (${response.status})`
-          );
+          throw new Error(data.message || "Failed to add appointment");
         }
 
-        const newAppointment = await response.json();
-        console.log("Successfully created appointment:", newAppointment);
-
-        setAppointments((prev) => [...prev, newAppointment]);
+        if (data.appointment) {
+          setAppointments((prev) => [...prev, data.appointment!]);
+        }
+        
+        // Refresh the appointments list to ensure we have the latest data
+        await fetchAppointments();
       } catch (err) {
-        console.error("Error in addAppointment:", {
-          error: err,
-          message: err instanceof Error ? err.message : "Unknown error",
-          stack: err instanceof Error ? err.stack : undefined,
-        });
-
-        throw err;
+        console.error("Error adding appointment:", err);
+        setError("Failed to schedule appointment. Please try again.");
       } finally {
         setIsLoading(false);
       }
     },
-    []
+    [fetchAppointments]
   );
 
   const updateAppointmentStatus = useCallback(
     async (id: number, status: "pending" | "confirmed" | "cancelled") => {
       try {
-        const response = await fetch(
-          `http://localhost:3001/api/appointments/${id}`,
-          {
-            method: "PATCH",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ status }),
-          }
-        );
+        const response = await fetch(`${apiEndpoints.appointments}?id=${id}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ status }),
+        });
 
         if (!response.ok) {
           throw new Error("Failed to update appointment status");
@@ -145,35 +136,39 @@ export const AppointmentProvider: React.FC<{ children: React.ReactNode }> = ({
             appointment.id === id ? { ...appointment, status } : appointment
           )
         );
-      } catch (err) {
-        console.error("Error updating appointment status:", err);
-        setError("Failed to update appointment status");
+        
+        // Refresh appointments to ensure we have the latest data
+        await fetchAppointments();
+      } catch (error) {
+        console.error("Error updating appointment status:", error);
       }
     },
-    []
+    [fetchAppointments]
   );
 
-  const deleteAppointment = useCallback(async (id: number) => {
-    try {
-      const response = await fetch(
-        `http://localhost:3001/api/appointments/${id}`,
-        {
+  const deleteAppointment = useCallback(
+    async (id: number) => {
+      try {
+        const response = await fetch(`${apiEndpoints.appointments}?id=${id}`, {
           method: "DELETE",
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to delete appointment");
         }
-      );
 
-      if (!response.ok) {
-        throw new Error("Failed to delete appointment");
+        setAppointments((prev) =>
+          prev.filter((appointment) => appointment.id !== id)
+        );
+        
+        // Refresh appointments to ensure we have the latest data
+        await fetchAppointments();
+      } catch (error) {
+        console.error("Error deleting appointment:", error);
       }
-
-      setAppointments((prev) =>
-        prev.filter((appointment) => appointment.id !== id)
-      );
-    } catch (err) {
-      console.error("Error deleting appointment:", err);
-      setError("Failed to delete appointment");
-    }
-  }, []);
+    },
+    [fetchAppointments]
+  );
 
   const value = {
     appointments,
@@ -182,6 +177,7 @@ export const AppointmentProvider: React.FC<{ children: React.ReactNode }> = ({
     addAppointment,
     updateAppointmentStatus,
     deleteAppointment,
+    refreshAppointments,
   };
 
   return (

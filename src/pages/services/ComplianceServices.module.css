@@ -1,0 +1,17 @@
+.complianceContainer {
+  padding-top: 86px; /* Match header height */
+}
+
+.sectionContainer {
+  padding: 2rem 1rem;
+}
+
+@media (max-width: 768px) {
+  .complianceContainer {
+    padding-top: 86px;
+  }
+
+  .sectionContainer {
+    padding: 1.5rem 1rem;
+  }
+}

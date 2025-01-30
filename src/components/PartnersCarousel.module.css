@@ -1,0 +1,64 @@
+.carouselContainer {
+  padding: 2rem 0;
+  background-color: white;
+  overflow: hidden;
+  position: relative;
+}
+
+.carouselTitle {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #2D1B69;
+  margin-bottom: 2rem;
+}
+
+.carouselTrack {
+  display: flex;
+  animation: scroll 30s linear infinite;
+  gap: 2rem;
+}
+
+.carouselImage {
+  flex: 0 0 auto;
+  height: 100px;
+  object-fit: contain;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/* Add a container to clip the overflow and show a clean edge */
+.carouselWrapper {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+/* Gradient edges for smooth transition */
+.carouselWrapper::before,
+.carouselWrapper::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100px;
+  z-index: 2;
+}
+
+.carouselWrapper::before {
+  left: 0;
+  background: linear-gradient(to right, white, transparent);
+}
+
+.carouselWrapper::after {
+  right: 0;
+  background: linear-gradient(to left, white, transparent);
+}

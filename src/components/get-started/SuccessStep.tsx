@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
 import { CheckCircle2 } from "lucide-react";
 import React from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "../ui/card"; // Ensure this path is correct
+import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
+import useScrollToTop from "../../hooks/useScrollToTop";
 
 interface SuccessStepProps {
   formData: {
@@ -20,6 +21,7 @@ interface SuccessStepProps {
 }
 
 const SuccessStep: React.FC<SuccessStepProps> = ({ formData, onStartOver }) => {
+  useScrollToTop();
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}

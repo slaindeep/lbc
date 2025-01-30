@@ -1,7 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+@import "react-calendar/dist/Calendar.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import "react-calendar/dist/Calendar.css";
+
+/* Move the import statement to the top */
 
 body {
   margin: 0;
@@ -11,6 +15,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
 @layer utilities {
   .perspective {
     perspective: 1000px;
@@ -23,4 +28,20 @@ body {
   .rotate-y-10 {
     transform: rotateY(10deg);
   }
+}
+
+/* Button Animation Styles */
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.modern-gradient-button {
+  background-size: 200% auto;
+  animation: gradientShift 8s ease infinite;
+}
+
+.modern-gradient-button:hover {
+  animation-play-state: paused;
 }

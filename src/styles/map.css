@@ -1,0 +1,7 @@
+/* Import Leaflet CSS */
+@import 'leaflet/dist/leaflet.css';
+
+/* Override default marker styles */
+.marker-icon {
+  filter: hue-rotate(200deg);
+}

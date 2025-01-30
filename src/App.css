@@ -77,3 +77,25 @@
     transform: scale(1.1);
   }
 }
+
+/* Specific styles for our modern gradient button */
+.modern-gradient-button {
+  border-radius: 1rem !important; /* 16px */
+  overflow: hidden;
+}
+
+.modern-gradient-button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 1rem !important; /* 16px */
+}
+
+/* Ensure gradient background respects border radius */
+.modern-gradient-button::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 1rem !important; /* 16px */
+  z-index: -1;
+}

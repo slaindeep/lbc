@@ -1,210 +1,259 @@
+import React from "react";
+import { Box, Container, Grid } from "@mui/material";
 import { motion } from "framer-motion";
+import ServiceHero from "../components/ServiceHero";
+import videoSource from "../assets/video/optimized/whylbc.mp4";
 import {
-  BookOpen,
-  Crown,
-  Globe,
-  Lightbulb,
+  ArrowRight,
+  Building2,
+  Briefcase,
+  Calculator,
   Scale,
-  Shield,
   Users,
-  Zap,
+  Laptop,
 } from "lucide-react";
-import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import TeamMembers from "../components/sections/TeamMembers"; // Import TeamMembers component
+import useScrollToTop from "../hooks/useScrollToTop";
 
 const About = () => {
   const navigate = useNavigate();
+  useScrollToTop();
 
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, []);
-
-  const handleNavigation = (path: string) => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-    navigate(path);
+  const listVariants = {
+    hidden: { opacity: 0, x: -20 },
+    visible: (custom: number) => ({
+      opacity: 1,
+      x: 0,
+      transition: {
+        delay: custom * 0.2,
+        duration: 0.5,
+      },
+    }),
   };
 
-  const fadeInUp = {
-    initial: { opacity: 0, y: 20 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.6 },
-  };
-
-  const idealValues = [
+  const services = [
     {
-      letter: "I",
-      icon: Lightbulb,
-      title: "Innovation & Integrity",
-      description:
-        "Pioneering solutions while maintaining unwavering ethical standards. We combine creative thinking with strong moral principles to deliver exceptional results.",
+      title: "Business Setup",
+      description: "Streamlined guidance to establish your business with the appropriate jurisdiction and optimal legal structure.",
+      icon: <Building2 className="w-8 h-8 text-[#8B5CF6] mb-4" />,
     },
     {
-      letter: "D",
-      icon: Shield,
-      title: "Dependability",
-      description:
-        "Your trusted partner in business transformation. We remain steadfast in our commitments and reliable in our delivery, ensuring consistent excellence in every engagement.",
+      title: "Company Restructure",
+      description: "Expertise in mergers & acquisitions, legal reorganization, divestments, and financial restructuring.",
+      icon: <Briefcase className="w-8 h-8 text-[#8B5CF6] mb-4" />,
     },
     {
-      letter: "E",
-      icon: Zap,
-      title: "Empowering",
-      description:
-        "Enabling organizations and individuals to reach their full potential. We provide the tools, knowledge, and support needed to drive sustainable growth and success.",
+      title: "Accounting, Auditing & Tax",
+      description: "Ensuring financial precision, regulatory compliance, and expert advisory on VAT and Corporate Tax.",
+      icon: <Calculator className="w-8 h-8 text-[#8B5CF6] mb-4" />,
     },
     {
-      letter: "A",
-      icon: Scale,
-      title: "Accountability",
-      description:
-        "Taking ownership of outcomes and delivering measurable results. We hold ourselves to the highest standards and take full responsibility for achieving our clients' objectives.",
+      title: "Legal Services",
+      description: "Specializing in corporate structuring, contract drafting and negotiation, employment law, intellectual property, corporate governance, AML compliance, dispute resolution, and commercial advisory.",
+      icon: <Scale className="w-8 h-8 text-[#8B5CF6] mb-4" />,
     },
     {
-      letter: "L",
-      icon: Crown,
-      title: "Leadership",
-      description:
-        "Guiding transformation through expertise and vision. We lead by example, providing strategic direction and empowering teams to achieve exceptional results through collaborative excellence.",
+      title: "HR & PRO Services",
+      description: "Comprehensive HR advisory, visa facilitation, and immigration-related administrative support.",
+      icon: <Users className="w-8 h-8 text-[#8B5CF6] mb-4" />,
+    },
+    {
+      title: "Technology & Digital Transformation",
+      description: "Empowering businesses with innovative technologies and digital solutions to ensure competitiveness in a digital-first economy.",
+      icon: <Laptop className="w-8 h-8 text-[#8B5CF6] mb-4" />,
     },
   ];
 
-  const statsData = [
+  const partners = [
     {
-      icon: BookOpen,
-      value: "20+",
-      label: "Years Regional Experience",
+      name: "Luminous Legal Partners",
+      location: "UAE & India",
+      description: "A trusted provider of legal solutions since 2013.",
+      logo: "/images/services/luminouslogo.png",
     },
     {
-      icon: Users,
-      value: "100+",
-      label: "Years Combined Expertise",
+      name: "RKA Global Chartered Accountants LLC",
+      location: "UAE & India",
+      description: "Financial specialists serving businesses since 1994.",
+      logo: "/images/services/rkalogo.png",
     },
     {
-      icon: Globe,
-      value: "5",
-      label: "Strategic Locations",
+      name: "Business Pros",
+      location: "UAE",
+      description: "Renowned experts in company formation, HR, and PRO services, now rebranded as Luminous Bluewaters Consultancy.",
+      logo: "/images/services/busproslogo.png",
+    },
+    {
+      name: "Lucem Analytics",
+      location: "USA",
+      description: "Pioneers in digital transformation and innovation.",
+      logo: "/images/services/LucemLogo2025.png",
     },
   ];
+
+  // Common Section Header Component
+  const SectionHeader = ({
+    title,
+    delay = 0,
+  }: {
+    title: string;
+    delay?: number;
+  }) => (
+    <motion.h3
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ delay, duration: 0.5 }}
+      className="text-2xl font-bold text-[#2D1B69] mt-12 mb-6"
+    >
+      {title}
+    </motion.h3>
+  );
+
+  // Common CTA Button Component
+  const CTAButton = ({ text, delay = 0 }: { text: string; delay?: number }) => (
+    <Box sx={{ mt: 6, display: "flex", justifyContent: "center", gap: 2 }}>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay, duration: 0.5 }}
+      >
+        <button
+          onClick={() => navigate("/get-started")}
+          className="group relative px-8 py-4 rounded-full bg-[#C4B5FD] text-[#2D1B69] font-medium 
+                    border-2 border-[#8B5CF6] hover:bg-[#8B5CF6] hover:text-white
+                    transition-all duration-300 transform hover:scale-105
+                    shadow-lg hover:shadow-xl text-lg"
+        >
+          <span className="relative z-10 flex items-center justify-center gap-2">
+            {text}
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
+          </span>
+        </button>
+      </motion.div>
+    </Box>
+  );
 
   return (
-    <div className="pt-20">
-      {/* Hero Section */}
-      <section className="bg-gradient-to-b from-[#5D4A82] to-[#856BAE] text-white py-24 relative overflow-hidden">
-        <div className="absolute inset-0">
-          <div className="absolute top-20 left-20 w-64 h-64 bg-white/5 rounded-full blur-3xl animate-pulse-slow" />
-          <div className="absolute bottom-20 right-20 w-96 h-96 bg-white/5 rounded-full blur-3xl animate-pulse-slow delay-700" />
-        </div>
+    <Box>
+      <ServiceHero
+        title="About Us"
+        subtitle="Your Trusted Partner for Business Success"
+        description="Empowering businesses across the UAE with integrated, end-to-end corporate solutions since 2022."
+        videoSource={videoSource}
+      />
 
-        <div className="container mx-auto px-4 relative z-10">
-          <motion.div
-            className="max-w-4xl mx-auto text-center"
-            initial="initial"
-            whileInView="animate"
-            viewport={{ once: true }}
-            variants={fadeInUp}
-          >
-            <div className="inline-block px-4 py-2 bg-white/10 backdrop-blur-lg rounded-full mb-6">
-              <span className="text-white/90 font-medium">
-                Your IDEAL Consulting Partner in UAE & GCC
-              </span>
-            </div>
+      <Container maxWidth="lg" sx={{ mt: 8, mb: 6 }}>
+        {/* Who We Are section */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <SectionHeader title="Who We Are" />
+          <motion.p className="text-gray-700 text-lg leading-relaxed mb-6">
+            Luminous Bluewaters Consultancy, established in 2022, is dedicated to empowering businesses across the United Arab Emirates to unlock their full potential. By uniting the capabilities of four distinguished entities under a single platform, we deliver integrated, end-to-end corporate solutions tailored to every stage of your business journey.
+          </motion.p>
+          <motion.p className="text-gray-700 text-lg leading-relaxed mb-6">
+            Our suite of services spans Business setup, Accounting, Legal Consultancy, Technology and beyond, positioning us as a trusted partner for sustainable growth. With a wealth of combined expertise, we support both emerging startups and established enterprises, equipping them to thrive in an ever-evolving and competitive market landscape.
+          </motion.p>
+        </motion.div>
 
-            <h1 className="text-5xl md:text-6xl font-bold mb-8">
-              Transforming Businesses Through
-              <span className="bg-gradient-to-r from-purple-300 to-pink-200 bg-clip-text text-transparent block mt-2 leading-normal pb-2">
-                Strategic Excellence
-              </span>
-            </h1>
+        {/* Partner section */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
+          <SectionHeader title="Our Network of Companies" />
+          <motion.p className="text-gray-700 text-lg leading-relaxed mb-6">
+            Luminous Bluewaters Consultancy may be a new name, but it is driven by a strategic alliance of industry leaders with decades of global experience. This unique collaboration combines international reach with deep local expertise, delivering exceptional value to clients worldwide.
+          </motion.p>
 
-            <p className="text-xl md:text-2xl text-white/90 leading-relaxed mb-12">
-              Bridging global expertise with local insight to deliver
-              comprehensive business solutions across the UAE and GCC region.
-            </p>
-
-            <div className="grid md:grid-cols-3 gap-4 mt-16">
-              {statsData.map((stat, index) => (
-                <motion.div
-                  key={stat.label}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  className="bg-white/10 backdrop-blur-lg rounded-xl p-6 transform hover:scale-105 transition-all duration-300"
-                >
-                  <stat.icon className="w-8 h-8 text-white/80 mb-4 mx-auto" />
-                  <div className="text-3xl font-bold">{stat.value}</div>
-                  <div className="text-sm text-white/80">{stat.label}</div>
-                </motion.div>
+          <Box sx={{ pt: 10, pb: 4 }}>
+            <Grid container spacing={8} alignItems="center" justifyContent="center">
+              {partners.map((partner, index) => (
+                <Grid item xs={12} sm={6} key={index}>
+                  <motion.div
+                    variants={listVariants}
+                    initial="hidden"
+                    animate="visible"
+                    custom={index}
+                    className="flex flex-col items-center"
+                  >
+                    <img
+                      src={partner.logo}
+                      alt={`${partner.name}`}
+                      className="w-full max-w-[280px] h-auto object-contain mb-4"
+                    />
+                    <p className="text-[#8B5CF6] text-lg font-medium text-center mt-2">
+                      {partner.location}
+                    </p>
+                    <p className="text-gray-600 text-base leading-relaxed text-center mt-2">
+                      {partner.description}
+                    </p>
+                  </motion.div>
+                </Grid>
               ))}
-            </div>
-          </motion.div>
-        </div>
-      </section>
+            </Grid>
+          </Box>
+        </motion.div>
 
-      {/* IDEAL Values Section */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-4">
-          <motion.div
-            className="text-center mb-16"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-[#5D4A82] mb-4">
-              Our IDEAL Approach
-            </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Five core principles that define our commitment to excellence and
-              drive transformative results
-            </p>
-          </motion.div>
+        {/* Services section */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+        >
+          <SectionHeader title="What We Do" />
+          <motion.p className="text-gray-700 text-lg leading-relaxed mb-8">
+            Starting a business in a middle eastern jurisdiction presents both unparalleled opportunities and unique challenges. While the region's dynamic, globalized market offers immense potential, navigating its complexities requires strategic foresight and expert guidance. That's where{" "}
+            <span className="font-medium">Luminous Bluewaters Consultancy</span>{" "}
+            comes in.
+          </motion.p>
 
-          <div className="grid md:grid-cols-5 gap-6">
-            {idealValues.map((value, index) => (
-              <motion.div
-                key={value.letter}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="group perspective h-full"
-              >
-                <div className="relative transform-style-3d transition-transform duration-500 group-hover:rotate-y-10 h-full">
-                  <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-100 transform-style-3d group-hover:shadow-xl transition-all duration-300 h-full flex flex-col">
-                    <div className="flex-shrink-0">
-                      <div className="flex items-center justify-center mb-6">
-                        <span className="text-6xl font-bold bg-gradient-to-r from-[#5D4A82] to-[#856BAE] text-transparent bg-clip-text">
-                          {value.letter}
-                        </span>
-                      </div>
-                      <value.icon className="w-12 h-12 text-[#5D4A82] mb-4 mx-auto" />
-                    </div>
-                    <div className="flex-grow flex flex-col">
-                      <h3 className="text-xl font-bold text-[#5D4A82] mb-3 text-center">
-                        {value.title}
-                      </h3>
-                      <p className="text-gray-600 text-center mt-auto">
-                        {value.description}
-                      </p>
-                    </div>
+          <Grid container spacing={4}>
+            {services.map((service, index) => (
+              <Grid item xs={12} md={6} key={index}>
+                <motion.div
+                  variants={listVariants}
+                  initial="hidden"
+                  animate="visible"
+                  custom={index}
+                  className="bg-white p-6 rounded-xl border-2 border-[#C4B5FD] hover:border-[#8B5CF6] transition-all duration-300 h-full flex flex-col"
+                  style={{ minHeight: "250px" }}
+                >
+                  <div className="flex items-start">
+                    {service.icon}
+                    <h3 className="text-xl font-bold text-[#2D1B69] mb-3 ml-4">
+                      {service.title}
+                    </h3>
                   </div>
-                </div>
-              </motion.div>
+                  <p className="text-gray-700 text-base leading-relaxed mt-4">
+                    {service.description}
+                  </p>
+                </motion.div>
+              </Grid>
             ))}
-          </div>
-        </div>
-      </section>
+          </Grid>
 
-      {/* Team Members Section */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-      >
-        <TeamMembers />
-      </motion.div>
-    </div>
+          <Box sx={{ pt: 10, pb: 4 }}>
+            <motion.div
+              variants={listVariants}
+              initial="hidden"
+              animate="visible"
+              custom={6}
+              className="text-center"
+            >
+              <p className="text-gray-700 text-lg leading-relaxed mb-10">
+                Our integrated approach ensures your business doesn't just launch—it flourishes. Whether you're building a new venture or scaling an established operation, we deliver tailored, innovative solutions designed to drive your long-term success.
+              </p>
+
+              <CTAButton text="Start Your Journey With Us" delay={1.0} />
+            </motion.div>
+          </Box>
+        </motion.div>
+      </Container>
+    </Box>
   );
 };
 

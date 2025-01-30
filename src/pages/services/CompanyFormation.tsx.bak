@@ -1,0 +1,85 @@
+import React from 'react';
+import ServiceTemplate from './ServiceTemplate';
+import { bannerImages, processImages } from '../../config/images';
+
+const CompanyFormation: React.FC = () => {
+  const serviceData = {
+    title: "Company Formation",
+    description: "Comprehensive company formation services to help establish your business presence in the UAE. Our expert team guides you through every step of the formation process.",
+    heroImage: bannerImages.formation,
+    keyFeatures: [
+      {
+        title: "Freezone",
+        description: "Complete setup solutions for establishing your business in UAE's specialized free zones.",
+        icon: "freezone"
+      },
+      {
+        title: "Mainland",
+        description: "Full support for mainland company formation with local partnership requirements.",
+        icon: "mainland"
+      },
+      {
+        title: "Offshore",
+        description: "Strategic offshore company formation services for international business operations.",
+        icon: "offshore"
+      },
+      {
+        title: "Organizational Restructuring",
+        description: "Expert guidance in restructuring your business for optimal efficiency.",
+        icon: "restructuring"
+      }
+    ],
+    benefits: [
+      {
+        title: "Strategic Location Selection",
+        description: "Expert guidance in choosing the right jurisdiction for your business objectives",
+        icon: "location"
+      },
+      {
+        title: "Complete Documentation Support",
+        description: "Handling all necessary paperwork and legal requirements",
+        icon: "documentation"
+      },
+      {
+        title: "Streamlined Process",
+        description: "Efficient and fast-tracked company registration process",
+        icon: "progress"
+      },
+      {
+        title: "Ongoing Support",
+        description: "Continued assistance with post-formation requirements and compliance",
+        icon: "support"
+      }
+    ],
+    process: [
+      {
+        step: 1,
+        title: "Initial Consultation",
+        description: "Understanding your business needs and objectives to recommend the best formation option.",
+        image: processImages.initialConsultation
+      },
+      {
+        step: 2,
+        title: "Documentation Preparation",
+        description: "Gathering and preparing all necessary documents for company registration.",
+        image: processImages.documentPreparation
+      },
+      {
+        step: 3,
+        title: "Registration Process",
+        description: "Handling the complete registration process with relevant authorities.",
+        image: processImages.registrationProcess
+      },
+      {
+        step: 4,
+        title: "Post Formation Support",
+        description: "Assisting with bank account opening, visa processing, and other setup requirements.",
+        image: processImages.postFormationSupport
+      }
+    ]
+  };
+
+  return <ServiceTemplate {...serviceData} />;
+};
+
+export default CompanyFormation;

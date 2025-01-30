@@ -1,0 +1,17 @@
+.hrContainer {
+  padding-top: 96px; /* Match header height */
+}
+
+.sectionContainer {
+  padding: 2rem 1rem;
+}
+
+@media (max-width: 768px) {
+  .hrContainer {
+    padding-top: 96px;
+  }
+  
+  .sectionContainer {
+    padding: 1.5rem 1rem;
+  }
+}

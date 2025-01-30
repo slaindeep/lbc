@@ -1,11 +1,25 @@
 // server/routes/appointments.routes.ts
-import express from "express";
+import express, { Request, Response } from "express";
 import nodemailer from "nodemailer";
 import dotenv from "dotenv";
 
 dotenv.config();
 
 const router = express.Router();
+
+interface ContactInfo {
+  name: string;
+  email: string;
+  phone: string;
+  message?: string;
+}
+
+interface AppointmentRequest {
+  contactInfo: ContactInfo;
+  appointmentTime: string;
+  companySize: string;
+  services: string[];
+}
 
 // Create email transporter
 const transporter = nodemailer.createTransport({
@@ -17,7 +31,7 @@ const transporter = nodemailer.createTransport({
 });
 
 // Verify transporter configuration
-transporter.verify((error, success) => {
+transporter.verify((error: Error | null, success: boolean) => {
   if (error) {
     console.error("Error configuring email transporter:", error);
   } else {
@@ -25,7 +39,7 @@ transporter.verify((error, success) => {
   }
 });
 
-router.post("/schedule", async (req, res) => {
+router.post("/schedule", async (req: Request<{}, {}, AppointmentRequest>, res: Response) => {
   const { contactInfo, appointmentTime, companySize, services } = req.body;
 
   const emailHtml = `

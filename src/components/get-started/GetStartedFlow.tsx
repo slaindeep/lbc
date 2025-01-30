@@ -1,6 +1,6 @@
 // src/components/GetStartedFlow.tsx
 import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import StepIndicator from "./common/StepIndicator";
 import CompanySizeStep from "./CompanySizeStep";
 import SchedulingStep from "./SchedulingStep";
@@ -23,6 +23,11 @@ const GetStartedFlow = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState<CustomFormData>({});
 
+  // Add useEffect to scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const updateFormData = (data: Partial<CustomFormData>) => {
     setFormData((prev) => ({ ...prev, ...data }));
   };
@@ -30,12 +35,16 @@ const GetStartedFlow = () => {
   const handleNext = () => {
     if (currentStep < 3) {
       setCurrentStep((prev) => prev + 1);
+      // Scroll to top when moving to next step
+      window.scrollTo(0, 0);
     }
   };
 
   const handleBack = () => {
     if (currentStep > 1) {
       setCurrentStep((prev) => prev - 1);
+      // Scroll to top when moving to previous step
+      window.scrollTo(0, 0);
     }
   };
 

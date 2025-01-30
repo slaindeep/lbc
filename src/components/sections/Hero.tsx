@@ -1,8 +1,8 @@
 import { motion } from "framer-motion";
-import { ChevronRight, Globe } from "lucide-react";
-import { useState } from "react";
+import { ChevronRight, Globe, ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import ImageCarousel from "../../components/get-started/common/ImageCarousel";
+import Button from "../ui/Buttons";
 
 // Import images
 import upwardViewImage from "../../assets/images/abudhabi.jpg";
@@ -12,7 +12,6 @@ import faisaliahImage from "../../assets/images/riyadh.jpg";
 
 const Hero = () => {
   const navigate = useNavigate();
-  const [currentIndex, setCurrentIndex] = useState(0);
 
   const images = [
     { src: upwardViewImage, city: "Abu Dhabi" },
@@ -55,7 +54,7 @@ const Hero = () => {
             Transform
             <br />
             <span className="bg-gradient-to-r from-white via-purple-200 to-blue-200 bg-clip-text text-transparent">
-              tomorrow together
+              Tomorrow Together
             </span>
           </h1>
 
@@ -67,16 +66,29 @@ const Hero = () => {
 
           {/* CTAs */}
           <div className="flex flex-wrap gap-4">
-            <motion.button
-              whileHover={{ scale: 1.02 }}
-              onClick={() => navigate("/get-started")}
-              className="bg-white text-[#5D4A82] px-8 py-4 rounded-lg 
-                hover:bg-opacity-90 transition-all duration-300 font-semibold text-lg
-                flex items-center gap-2 group"
-            >
-              Transform Your Business
-              <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </motion.button>
+            <motion.div whileHover={{ scale: 1.02 }}>
+              <Button
+                variant="primary"
+                size="lg"
+                onClick={() => navigate("/get-started")}
+                className="group"
+              >
+                Transform Your Business
+                <ChevronRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </motion.div>
+
+            <motion.div whileHover={{ scale: 1.02 }}>
+              <Button
+                variant="secondary"
+                size="lg"
+                onClick={() => navigate("/get-started")}
+                className="group"
+              >
+                Explore Services
+                <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </motion.div>
           </div>
         </motion.div>
       </div>
