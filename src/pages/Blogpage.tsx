@@ -12,7 +12,7 @@ const blogPosts = [
     title: "The Critical Role of WPS in UAE Businesses",
     subtitle: "Ensuring Employee Welfare and Legal Compliance",
     date: "January 24, 2025",
-    author: "Luminous Legal Partners",
+    author: "LBC",
     excerpt:
       "Understanding the importance of Wage Protection System (WPS) in UAE businesses and its benefits for both employers and employees.",
     slug: "/blogs/wps-uae-businesses",
@@ -24,7 +24,7 @@ const blogPosts = [
     title: "Unlocking UAE Tax Benefits for Indian Investors",
     subtitle: "Insights from the Latest Tax Ruling",
     date: "November 26, 2024",
-    author: "Luminous Legal Partners",
+    author: "LBC",
     excerpt:
       "Comprehensive analysis of the latest tax ruling affecting Indian investors in the UAE.",
     slug: "/blogs/uae-tax-benefits",
@@ -36,7 +36,7 @@ const blogPosts = [
     title: "UAE VAT Reforms Unveiled",
     subtitle: "Key Impacts on Your Business",
     date: "November 18, 2024",
-    author: "Luminous Legal Partners",
+    author: "LBC",
     excerpt:
       "Understanding the latest VAT reforms and their implications for UAE businesses.",
     slug: "/blogs/vat-reforms",
@@ -48,7 +48,7 @@ const blogPosts = [
     title: "Is Your Service Brand Truly Protected?",
     subtitle: "Understanding Trademark Essentials",
     date: "November 8, 2024",
-    author: "Luminous Legal Partners",
+    author: "LBC",
     excerpt: "Essential guide to trademark protection for service brands.",
     slug: "/blogs/trademark-essentials",
     image: trademark,
@@ -59,7 +59,7 @@ const blogPosts = [
     title: "Building Resilient Corporate Governance Frameworks",
     subtitle: "Ensuring Sustainable Business Success",
     date: "November 1, 2024",
-    author: "Luminous Legal Partners",
+    author: "LBC",
     excerpt:
       "Discover why a resilient governance framework is essential for modern boards and how to implement one.",
     slug: "/blogs/corporate-governance",

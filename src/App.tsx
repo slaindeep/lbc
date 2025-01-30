@@ -63,7 +63,7 @@ const App = () => {
                     element={
                       <>
                         <SEO
-                          title="Luminous Bluewaters Consultancy | Corporate Services Dubai"
+                          title="Expert Business Consulting Services, UAE | Luminous Bluewaters"
                           description="Leading corporate service provider in Dubai, UAE. Specializing in business consulting, HR services, audit, and data analytics solutions."
                           canonicalUrl="https://lumi-blue.com/"
                         />

@@ -13,7 +13,7 @@ const WPSBlog = () => {
         </Link>
       </div>
       
-      <article className="prose prose-lg max-w-none">
+      <article className="prose prose-lg max-w-none prose-h1:text-4xl prose-h1:font-bold prose-h2:text-3xl prose-h2:font-semibold">
         <img src={wpsBanner} alt="WPS in UAE" className="w-full rounded-lg mb-8"/>
         
         <h1>The Critical Role of WPS in UAE Businesses: Ensuring Employee Welfare and Legal Compliance</h1>
