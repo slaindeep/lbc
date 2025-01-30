@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@hostinger/static-build",
+      "config": {
+        "buildCommand": "npm install && npm run build",
+        "outputDirectory": "build",
+        "nodeVersion": "18.x"
+      }
+    }
+  ]
+}
