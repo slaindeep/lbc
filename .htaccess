@@ -1,0 +1,19 @@
+Options -MultiViews
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.html [QSA,L]
+
+# Set proper headers for different file types
+<FilesMatch "\.(js|css|png|jpg|jpeg|gif|ico|svg)$">
+    Header set Cache-Control "max-age=31536000, public"
+</FilesMatch>
+
+# Enable directory browsing if needed
+Options +Indexes
+
+# Set default character set
+AddDefaultCharset UTF-8
+
+# Allow from all
+Require all granted
