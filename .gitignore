@@ -2,11 +2,20 @@
 *
 !*/
 
-# Don't ignore these files
+# Don't ignore these specific files
 !.gitignore
 !.htaccess
-!build/**
-!build/.htaccess
+!index.html
+!favicon.ico
+!logo192.png
+!logo512.png
+!manifest.json
+!asset-manifest.json
+!robots.txt
+!sitemap.xml
+!WhyLuminousBluewat.mp4
+!static/**/*
+!images/**/*
 
 # Still ignore these even if they're in allowed directories
 **/node_modules/
