@@ -1,1 +1,0 @@
-npm install --save tailwind-merge clsx @types/cors cors nodemailer @types/nodemailer express @types/express @types/node && npm install

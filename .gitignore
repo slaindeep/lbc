@@ -1,61 +1,14 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# Ignore everything
+*
+!*/
 
-# dependencies
-/node_modules
-/.pnp
-.pnp.js
+# Don't ignore these files
+!.gitignore
+!.htaccess
+!build/**
+!build/.htaccess
 
-# testing
-/coverage
-
-# production
-/build
-/dist
-
-# misc
-.DS_Store
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# environment files
-/server/.env
-.env
-.env.*
-!.env.example
-
-# IDE - VSCode
-.vscode/
-*.code-workspace
-
-# IDE - WebStorm/IntelliJ
-.idea/
-*.iml
-
-# IDE - Sublime Text
-*.sublime-project
-*.sublime-workspace
-
-# Operating System Files
-# Windows
-Thumbs.db
-desktop.ini
-
-# macOS
-._*
-
-# Temporary files
-*.tmp
-*.temp
-*.swp
-*~
-
-# Logs
-*.log
-logs/
-debug.log
+# Still ignore these even if they're in allowed directories
+**/node_modules/
+**/.env*
+**/.DS_Store
