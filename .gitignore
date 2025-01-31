@@ -1,23 +1,22 @@
-# Ignore everything
+# Ignore everything except the files we want
 *
-!*/
-
-# Don't ignore these specific files
+!static/
+!static/**
+!images/
+!images/**
 !.gitignore
 !.htaccess
+!WhyLuminousBluewat.mp4
+!sitemap.xml
+!robots.txt
+!manifest.json
+!logo512.png
+!logo192.png
 !index.html
 !favicon.ico
-!logo192.png
-!logo512.png
-!manifest.json
 !asset-manifest.json
-!robots.txt
-!sitemap.xml
-!WhyLuminousBluewat.mp4
-!static/**/*
-!images/**/*
 
-# Still ignore these even if they're in allowed directories
-**/node_modules/
-**/.env*
-**/.DS_Store
+# Always ignore these
+.DS_Store
+node_modules/
+.env*
