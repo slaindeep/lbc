@@ -5,8 +5,9 @@
       "src": "package.json",
       "use": "@hostinger/static-build",
       "config": {
-        "buildCommand": "npm install && npm run build",
-        "outputDirectory": "build"
+        "buildCommand": "npm install --legacy-peer-deps && react-scripts build",
+        "outputDirectory": "build",
+        "nodeVersion": "18.x"
       }
     }
   ],
