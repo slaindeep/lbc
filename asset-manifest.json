@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.b9ce86ce.css",
-    "main.js": "/static/js/main.3a8795b4.js",
+    "main.css": "/static/css/main.f2650f4c.css",
+    "main.js": "/static/js/main.b5545786.js",
     "static/js/453.7caa08d7.chunk.js": "/static/js/453.7caa08d7.chunk.js",
     "static/media/lbchome2.mp4": "/static/media/lbchome2.ef61db506885211fd959.mp4",
     "static/media/whylbc.mp4": "/static/media/whylbc.dfec4662944020bd733f.mp4",
@@ -23,12 +23,16 @@
     "static/media/vatreformsimage.png": "/static/media/vatreformsimage.306b988c009e512e5609.png",
     "static/media/sandeepProfile.jpg": "/static/media/sandeepProfile.5d72c3159dc266d43534.jpg",
     "static/media/jitheeshprofilepic.jpg": "/static/media/jitheeshprofilepic.88f87270d3d2121a5fa9.jpg",
+    "static/media/whyneedwill.jpg": "/static/media/whyneedwill.2c77eae25da7ea5c27de.jpg",
     "static/media/wpstwo.jpg": "/static/media/wpstwo.dd7c4997c4a0267faba6.jpg",
     "static/media/Ahmed.jpg": "/static/media/Ahmed.c5582afa2b5f06f05f2f.jpg",
     "static/media/wpsone.jpg": "/static/media/wpsone.d0fbfc688ca08766f891.jpg",
     "static/media/lbcremovebg-removebg-preview.png": "/static/media/lbcremovebg-removebg-preview.dbc8e6e8d099f68eadf9.png",
+    "static/media/willfamily.jpg": "/static/media/willfamily.4198f2b9d1756aff6630.jpg",
+    "static/media/willdbbldg.jpg": "/static/media/willdbbldg.aaf8ed51dcf9e4daaa28.jpg",
     "static/media/Shams-Auth.jpeg": "/static/media/Shams-Auth.b7565a6ea4dd320cfaac.jpeg",
     "static/media/lbchome_thumb.jpg": "/static/media/lbchome_thumb.a0a0ba26ab93471d8b29.jpg",
+    "static/media/willdubaicourts.jpg": "/static/media/willdubaicourts.4cdad36584e7fbee1b90.jpg",
     "static/media/Tonyprofile.jpg": "/static/media/Tonyprofile.b2b745efe2a1e8d84593.jpg",
     "static/media/IFZA-Auth.jpeg": "/static/media/IFZA-Auth.4dda0b97f0ea44cc43fb.jpeg",
     "static/media/1-sharja.png": "/static/media/1-sharja.aa335a1af9c60544835b.png",
@@ -36,12 +40,12 @@
     "static/media/Rakz-Auth.jpeg": "/static/media/Rakz-Auth.137c51286a23177bc295.jpeg",
     "static/media/logo.png": "/static/media/logo.9fa61d88de01f48f6275.png",
     "index.html": "/index.html",
-    "main.b9ce86ce.css.map": "/static/css/main.b9ce86ce.css.map",
-    "main.3a8795b4.js.map": "/static/js/main.3a8795b4.js.map",
+    "main.f2650f4c.css.map": "/static/css/main.f2650f4c.css.map",
+    "main.b5545786.js.map": "/static/js/main.b5545786.js.map",
     "453.7caa08d7.chunk.js.map": "/static/js/453.7caa08d7.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.b9ce86ce.css",
-    "static/js/main.3a8795b4.js"
+    "static/css/main.f2650f4c.css",
+    "static/js/main.b5545786.js"
   ]
 }
