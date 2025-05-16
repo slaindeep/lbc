@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.18f3b0c8.css",
-    "main.js": "/static/js/main.75c23c53.js",
+    "main.js": "/static/js/main.2ddb6adf.js",
     "static/js/453.7caa08d7.chunk.js": "/static/js/453.7caa08d7.chunk.js",
     "static/media/lbchome2.mp4": "/static/media/lbchome2.ef61db506885211fd959.mp4",
     "static/media/whylbc.mp4": "/static/media/whylbc.dfec4662944020bd733f.mp4",
@@ -22,7 +22,6 @@
     "static/media/scgovernance.png": "/static/media/scgovernance.8fa3e3ab6c745aa54a8d.png",
     "static/media/vatreformsimage.png": "/static/media/vatreformsimage.306b988c009e512e5609.png",
     "static/media/dubaiglobal3.jpg": "/static/media/dubaiglobal3.ada86522eebbd2be66d5.jpg",
-    "static/media/sandeepProfile.jpg": "/static/media/sandeepProfile.5d72c3159dc266d43534.jpg",
     "static/media/dubaiglobal2.jpg": "/static/media/dubaiglobal2.61b1de393f5d58178cc1.jpg",
     "static/media/jitheeshprofilepic.jpg": "/static/media/jitheeshprofilepic.88f87270d3d2121a5fa9.jpg",
     "static/media/dubaiglobal1.jpg": "/static/media/dubaiglobal1.72af635ee5890a9f6684.jpg",
@@ -45,11 +44,11 @@
     "static/media/logo.png": "/static/media/logo.9fa61d88de01f48f6275.png",
     "index.html": "/index.html",
     "main.18f3b0c8.css.map": "/static/css/main.18f3b0c8.css.map",
-    "main.75c23c53.js.map": "/static/js/main.75c23c53.js.map",
+    "main.2ddb6adf.js.map": "/static/js/main.2ddb6adf.js.map",
     "453.7caa08d7.chunk.js.map": "/static/js/453.7caa08d7.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.18f3b0c8.css",
-    "static/js/main.75c23c53.js"
+    "static/js/main.2ddb6adf.js"
   ]
 }
