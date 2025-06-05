@@ -1,8 +1,0 @@
-User-agent: *
-Allow: /
-Disallow: /admin
-Disallow: /login
-Disallow: /profile-processor
-Disallow: /success
-
-Sitemap: https://lumi-blue.com/sitemap.xml
